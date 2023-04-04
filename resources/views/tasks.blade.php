@@ -58,10 +58,10 @@
                             <th>&nbsp;</th>
                         </thead>
                         <tbody>
-                            @foreach ($task as $taskOb)
+                            @foreach ($tasks as $task)
                                 <tr>
                                     <td class="table-text">
-                                        <div>{{ $taskOb->name }}</div>
+                                        <div>{{ $task->name }}</div>
                                     </td>
 
                                     <!-- Task Update Button -->
@@ -77,7 +77,7 @@
 
                                     <!-- Task Delete Button -->
                                     <td>
-                                        <form action="{{ url('delete/' . $taskOb->id) }}" method="POST">
+                                        <form action="{{ url('delete/' . $task->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger">

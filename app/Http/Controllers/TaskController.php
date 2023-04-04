@@ -11,10 +11,10 @@ class TaskController extends Controller
     public function index()
     {
         //$tasks = DB::table('tasks')->get();
-        $task = new Task;
+       
 
-        $task->all();
-        return view('tasks', compact('task'));
+        $tasks = Task::all();
+        return view('tasks', compact('tasks'));
     }
 
 
@@ -22,12 +22,13 @@ class TaskController extends Controller
     {
         //debug
         //dd($request);
+        // $task = new Task;
+        // $task->name = $request->name;
+        // $task->save;
 
-        $task = new Task;
-
-        $task->name = $request->name;
-        $task->save;
-
+        Task::create([
+            'name' => $request->name
+        ]);
         // DB::table('tasks')->insert([
         //     'name' => $request->name,
         //     'created_at' => now(),
@@ -41,10 +42,12 @@ class TaskController extends Controller
     {
         // DB::table('tasks')->where('id', $id)->delete();
 
-        $task = Task::where('id', $id)->get();
+        // $task = Task::where('id', $id)->get();
 
         //لما بدي احذف فقط بدون ما استخدم اي شروطبعطيه ال id
-        //$task = Task::find($id) -> get();
+        $task = Task::find($id);
+
+        $task->delete();
 
         return redirect()->back();
     }
