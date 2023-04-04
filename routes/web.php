@@ -1,30 +1,18 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TaskController::class, 'index'])->name('tasks');
 
-Route::get('/', function () {
-    $tasks = DB::table('tasks')->get();
-    return view('index', compact('tasks'));
-});
+Route::post('insert', [TaskController::class, 'insert'])->name('task.insert');
 
-Route::post('insert', function () {
-    DB::table('tasks')->insert([
-        'name' => $_POST['name'],
-        'created_at' => now(),
-        'updated_at' => now()
-    ]);
+Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
 
-    return redirect() -> back();
-});
+Route::delete('edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
 
 
-Route::post('delete/{id}',function($id){
-    DB::table('tasks')-> where('id',$id)-> delete();
-
-    return redirect() -> back();
-});
+// Route::get('tasks', function () {
+//     return view('tasks');
+// });
